@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="parameters_tab">Parameters</string>
+    <string name="parameters_age">Age</string>
+    <string name="parameters_weight_desc">Your weight in kg</string>
+    <string name="parameters_age_desc">Your age</string>
+    <string name="parameters_height_desc">Your height in cm</string>
+    <string name="parameters_title">Parameters</string>
+    <string name="parameters_height">Height</string>
+    <string name="parameters_weight">Weight</string>
+</resources>

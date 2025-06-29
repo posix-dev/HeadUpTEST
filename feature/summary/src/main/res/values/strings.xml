@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="summary_total_intake_title">Total Intake</string>
+    <string name="summary_carbs_title">Carbs</string>
+    <string name="summary_fat_title">Fat</string>
+    <string name="summary_protein_title">Protein</string>
+    <string name="summary_tab">Summary</string>
+</resources>

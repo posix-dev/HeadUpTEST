@@ -1,10 +1,3 @@
 <resources>
     <string name="app_name">HeadUpTEST</string>
-    <string name="diary_tab">Diary</string>
-    <string name="summary_tab">Summary</string>
-    <string name="parameters_tab">Parameters</string>
-    <string name="summary_total_intake_title">Total Intake</string>
-    <string name="summary_carbs_title">Carbs</string>
-    <string name="summary_fat_title">Fat</string>
-    <string name="summary_protein_title">Protein</string>
 </resources>

@@ -21,3 +21,16 @@ dependencyResolutionManagement {
 
 rootProject.name = "HeadUpTEST"
 include(":app")
+include(":feature")
+include(":feature:parameters")
+include(":core")
+include(":core:ui")
+include(":feature:diary")
+include(":core:db")
+include(":core:model")
+include(":core:nav")
+include(":feature:new_entry")
+include(":feature:parameters:shared")
+include(":core:common")
+include(":feature:summary")
+include(":feature:diary:shared")

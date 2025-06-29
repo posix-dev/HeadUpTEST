@@ -14,7 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import cafe.adriel.voyager.navigator.tab.CurrentTab
 import cafe.adriel.voyager.navigator.tab.TabNavigator
-import com.example.headuptest.diary.DiaryTab
+import com.example.headuptest.diary.presentation.DiaryTab
 import com.example.headuptest.nav.TabNavigationItem
 import com.example.headuptest.parameters.ParametersTab
 import com.example.headuptest.summary.SummaryTab

@@ -43,6 +43,15 @@ android {
 }
 
 dependencies {
+    implementation(project(":core:ui"))
+    implementation(project(":core:db"))
+    implementation(project(":core:model"))
+    implementation(project(":core:nav"))
+    implementation(project(":feature:parameters"))
+    implementation(project(":feature:summary"))
+    implementation(project(":feature:diary"))
+    implementation(project(":feature:new_entry"))
+    implementation(project(":feature:parameters:shared"))
     //voyager
     implementation(libs.voyager.navigator.tab)
 
@@ -68,7 +77,7 @@ dependencies {
     implementation(libs.gson)
 
     //room
-    implementation(libs.room.runtime)
+//    implementation(libs.room.runtime)
     implementation(libs.room.ktx)
     kapt(libs.room.compiler)
 }
