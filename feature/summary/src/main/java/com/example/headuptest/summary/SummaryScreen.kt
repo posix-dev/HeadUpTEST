@@ -159,8 +159,8 @@ class SummaryScreen : Screen {
 
             drawArc(
                 color = primaryColor,
-                startAngle = -305f - progressAngle / 2f,
-                sweepAngle = if (progressPercent == 1f) totalAngle else progressAngle,
+                startAngle = 30f - progressAngle / 2f,
+                sweepAngle = if (progressPercent >= 1f) totalAngle else progressAngle,
                 useCenter = false,
                 style = stroke
             )
@@ -171,7 +171,7 @@ class SummaryScreen : Screen {
 
             drawArc(
                 color = secondaryColor,
-                startAngle = 235f - remainingAngle / 2f,
+                startAngle = 210f - remainingAngle / 2f,
                 sweepAngle = if (progressAngle == 0f) totalAngle else remainingAngle,
                 useCenter = false,
                 style = stroke
