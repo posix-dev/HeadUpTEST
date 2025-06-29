@@ -58,4 +58,17 @@ dependencies {
 
     // вынести потом
     implementation(libs.voyager.navigator.transitions)
+
+    //hilt
+    implementation(libs.hilt)
+    kapt(libs.hilt.compiler)
+    implementation(libs.hilt.nav)
+
+    // gson
+    implementation(libs.gson)
+
+    //room
+    implementation(libs.room.runtime)
+    implementation(libs.room.ktx)
+    kapt(libs.room.compiler)
 }

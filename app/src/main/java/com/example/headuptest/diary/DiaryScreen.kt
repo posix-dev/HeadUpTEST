@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -21,13 +22,18 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import com.example.headuptest.new_entry.NewEntryScreen
+import com.example.headuptest.new_entry.domain.entity.Entity
 import com.example.headuptest.ui.theme.White
 
 class DiaryScreen : Screen {
@@ -35,6 +41,12 @@ class DiaryScreen : Screen {
     @Composable
     override fun Content() {
         val navigator = LocalNavigator.currentOrThrow
+        val viewModel = hiltViewModel<DiaryViewModel>()
+        val state by viewModel.observeState().collectAsState()
+
+        LaunchedEffect(Unit) {
+            viewModel.onAction(DiaryViewModel.Action.Init)
+        }
 
         Scaffold(
             modifier = Modifier,
@@ -63,12 +75,11 @@ class DiaryScreen : Screen {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(paddingValues)
                     .padding(horizontal = 16.dp)
             ) {
                 Text(
                     modifier = Modifier.padding(vertical = 12.dp),
-                    text = "Parameters",
+                    text = "Diary",
                     color = MaterialTheme.colorScheme.onSurface,
                     style = MaterialTheme.typography.displaySmall
                 )
@@ -76,8 +87,8 @@ class DiaryScreen : Screen {
                     modifier = Modifier
                         .padding(start = 12.dp, end = 12.dp, top = 24.dp)
                 ) {
-                    items(3) {
-                        DiaryItem()
+                    items(state.items) {
+                        DiaryItem(it)
                     }
                 }
             }
@@ -86,7 +97,7 @@ class DiaryScreen : Screen {
 
     @OptIn(ExperimentalLayoutApi::class)
     @Composable
-    fun DiaryItem() {
+    fun DiaryItem(entity: Entity) {
         Column(
             modifier = Modifier
                 .padding(bottom = 16.dp)
@@ -99,7 +110,7 @@ class DiaryScreen : Screen {
         ) {
             Text(
                 modifier = Modifier.padding(start = 16.dp, top = 16.dp),
-                text = "Pizza",
+                text = entity.name,
                 color = White,
                 style = MaterialTheme.typography.labelLarge
             )
@@ -110,7 +121,7 @@ class DiaryScreen : Screen {
             ) {
                 Text(
                     modifier = Modifier.padding(end = 16.dp),
-                    text = "810 KCAL",
+                    text = "${entity.calories} KCAL",
                     color = MaterialTheme.colorScheme.primary,
                     style = MaterialTheme.typography.titleLarge
                 )
@@ -122,17 +133,17 @@ class DiaryScreen : Screen {
                     maxItemsInEachRow = 3
                 ) {
                     Text(
-                        text = "30 CARBS",
+                        text = "${entity.carbs} CARBS",
                         color = MaterialTheme.colorScheme.onSecondary,
                         style = MaterialTheme.typography.labelSmall
                     )
                     Text(
-                        text = "45 PROTEINS",
+                        text = "${entity.proteins} PROTEINS",
                         color = MaterialTheme.colorScheme.onSecondary,
                         style = MaterialTheme.typography.labelSmall
                     )
                     Text(
-                        text = "80 FATS",
+                        text = "${entity.fats} FATS",
                         color = MaterialTheme.colorScheme.onSecondary,
                         style = MaterialTheme.typography.labelSmall
                     )

@@ -9,11 +9,10 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 
 @Composable
 fun CustomTextField(
@@ -21,26 +20,25 @@ fun CustomTextField(
     label: String,
     supportingText: String,
     @DrawableRes resId: Int,
+    text: String,
+    keyboardOptions: KeyboardOptions = KeyboardOptions.Default.copy(
+        imeAction = ImeAction.Done,
+        keyboardType = KeyboardType.Number
+    ),
+    isError: Boolean = false,
+    onAction: (String) -> Unit
 ) {
-    val text = remember { mutableStateOf("") }
-
     TextField(
         modifier = modifier.fillMaxWidth(),
-        onValueChange = { text.value = it },
-        value = text.value,
+        onValueChange = onAction,
+        value = text,
         label = {
-            Text(
-                text = label
-            )
+            Text(text = label)
         },
         supportingText = {
-            Text(
-                text = supportingText
-            )
+            Text(text = supportingText)
         },
-        keyboardOptions = KeyboardOptions.Default.copy(
-            imeAction = ImeAction.Done
-        ),
+        keyboardOptions = keyboardOptions,
         colors = TextFieldDefaults.colors(
             unfocusedTextColor = MaterialTheme.colorScheme.onSurface,
             focusedTextColor = MaterialTheme.colorScheme.onSurface,
@@ -57,6 +55,7 @@ fun CustomTextField(
                 contentDescription = null,
                 tint = MaterialTheme.colorScheme.onSurface
             )
-        }
+        },
+        isError = isError
     )
 }

@@ -15,20 +15,33 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import cafe.adriel.voyager.core.screen.Screen
+import com.example.headuptest.R
 import com.example.headuptest.ui.theme.White
 
 class SummaryScreen : Screen {
 
     @Composable
     override fun Content() {
+        val viewModel = hiltViewModel<SummaryViewModel>()
+        val state by viewModel.observeState().collectAsState()
+
+        LaunchedEffect(Unit) {
+            viewModel.onAction(SummaryViewModel.Action.Init)
+        }
+
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -43,19 +56,31 @@ class SummaryScreen : Screen {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(top = 12.dp)
+                    .padding(top = 12.dp, start = 12.dp, end = 12.dp)
                     .verticalScroll(rememberScrollState()),
             ) {
-                SummaryItem("Total Intake")
-                SummaryItem("Carbs")
-                SummaryItem("Fat")
-                SummaryItem("Protein")
+                SummaryItem(
+                    stringResource(R.string.summary_total_intake_title),
+                    state.calories
+                )
+                SummaryItem(
+                    stringResource(R.string.summary_carbs_title),
+                    state.carbs
+                )
+                SummaryItem(
+                    stringResource(R.string.summary_fat_title),
+                    state.fats
+                )
+                SummaryItem(
+                    stringResource(R.string.summary_protein_title),
+                    state.protein
+                )
             }
         }
     }
 
     @Composable
-    private fun SummaryItem(title: String) {
+    private fun SummaryItem(title: String, data: SummaryViewModel.SummaryItem) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -68,7 +93,7 @@ class SummaryScreen : Screen {
                 .padding(vertical = 16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            CustomProgress()
+            CustomProgress(data.progress)
             Column(
                 modifier = Modifier.padding(start = 36.dp),
                 verticalArrangement = Arrangement.Center
@@ -81,7 +106,7 @@ class SummaryScreen : Screen {
                 )
                 Text(
                     modifier = Modifier,
-                    text = title,
+                    text = data.value,
                     color = MaterialTheme.colorScheme.primary,
                     style = MaterialTheme.typography.titleMedium
                 )
@@ -90,12 +115,12 @@ class SummaryScreen : Screen {
     }
 
     @Composable
-    private fun CustomProgress() {
+    private fun CustomProgress(progress: Float) {
         DualArcProgressBar(
             modifier = Modifier
                 .padding(start = 16.dp)
                 .size(96.dp),
-            progressPercent = 0.9f
+            progressPercent = progress
         )
     }
 
